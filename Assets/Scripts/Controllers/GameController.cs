@@ -12,6 +12,8 @@ namespace AmuzoBounce.Controllers
         private Camera mainCamera;
         private GameObject ball;
 
+        private bool ballIsActive;
+
         private void Awake()
         {
             mainCamera = Camera.main;
@@ -34,17 +36,23 @@ namespace AmuzoBounce.Controllers
 
         private void SpawnBall()
         {
+            if (ballIsActive)
+                return;
+
             var mousePosition = Input.mousePosition;
             var ballPosition = mainCamera.ScreenToWorldPoint(mousePosition);
             ballPosition.z = 0f;
 
             ball.transform.position = ballPosition;
             ball.SetActive(true);
+
+            ballIsActive = true;
         }
 
         private void DisableBall()
         {
             ball.SetActive(false);
+            ballIsActive = false;
         }
     }
 }
