@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Extensions
+namespace AmuzoBounce.Extensions
 {
     public static class Vector3Extensions
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Controllers
+namespace AmuzoBounce.Controllers
 {
     public class GameController : MonoBehaviour
     {
