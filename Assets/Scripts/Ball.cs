@@ -10,11 +10,14 @@ public class Ball : MonoBehaviour
     
     private Rigidbody2D rb;
 
+    private float ballRadius;
     private Vector2 velocity;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        ballRadius = Mathf.Max(transform.localScale.x, transform.localScale.y) / 2f;
+        transform.localScale = new Vector3(ballRadius * 2f, ballRadius * 2f, 1f);
     }
 
     private void FixedUpdate()
@@ -40,9 +43,13 @@ public class Ball : MonoBehaviour
         var normalisedVelocity = velocity.normalized;
         
         // Check for collisions
-        // TODO: Add ball scale to distance check
-        // TODO: Check corners
-        var cast = Physics2D.Raycast(rb.position, normalisedVelocity, frameVelocity.magnitude, collisionLayer);
+        var cast = Physics2D.CircleCast(
+            rb.position,
+            ballRadius,
+            normalisedVelocity,
+            frameVelocity.magnitude,
+            collisionLayer
+        );
         if (!cast)
         {
             rb.MovePosition(rb.position + frameVelocity);
@@ -61,10 +68,10 @@ public class Ball : MonoBehaviour
         
         // Get bounce vector
         var bounceVector = Vector3.Reflect(frameVelocity, normal);
-        Debug.DrawRay(cast.point, bounceVector);
+
         // Normalized bounce vector * (velocity - distance to collision)
         var reflectedPosition = bounceVector.normalized * (frameVelocity.magnitude - cast.distance);
-        rb.MovePosition(cast.point + reflectedPosition.ToVector2());
+        rb.MovePosition(cast.centroid + reflectedPosition.ToVector2());
 
         // Bounce velocity
         velocity = Vector3.Reflect(velocity, normal);
