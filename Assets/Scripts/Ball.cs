@@ -56,8 +56,7 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        var normal = cast.transform.up;
-        var dot = Vector3.Dot(normalisedVelocity, normal);
+        var dot = Vector3.Dot(normalisedVelocity, cast.transform.up);
 
         // if coming from beneath platform, skip
         if (dot > 0)
@@ -67,14 +66,14 @@ public class Ball : MonoBehaviour
         }
         
         // Get bounce vector
-        var bounceVector = Vector3.Reflect(frameVelocity, normal);
+        var bounceVector = Vector3.Reflect(frameVelocity, cast.normal);
 
         // Normalized bounce vector * (velocity - distance to collision)
         var reflectedPosition = bounceVector.normalized * (frameVelocity.magnitude - cast.distance);
         rb.MovePosition(cast.centroid + reflectedPosition.ToVector2());
 
         // Bounce velocity
-        velocity = Vector3.Reflect(velocity, normal);
+        velocity = Vector3.Reflect(velocity, cast.normal);
     }
 
     private Vector2 GetNewPosition() => rb.position + (velocity * Time.fixedDeltaTime);
