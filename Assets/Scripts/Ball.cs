@@ -56,15 +56,6 @@ public class Ball : MonoBehaviour
             return;
         }
 
-        var dot = Vector3.Dot(normalisedVelocity, cast.transform.up);
-
-        // if coming from beneath platform, skip
-        if (dot > 0)
-        {
-            rb.MovePosition(rb.position + frameVelocity);
-            return;
-        }
-        
         // Get bounce vector
         var bounceVector = Vector3.Reflect(frameVelocity, cast.normal);
 
