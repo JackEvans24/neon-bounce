@@ -1,3 +1,4 @@
+using System;
 using Extensions;
 using UnityEngine;
 
@@ -16,6 +17,17 @@ public class Ball : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void OnEnable()
+    {
+        ResetBall();
+    }
+
+    private void ResetBall()
+    {
+        velocity = Vector3.zero;
+
         ballRadius = Mathf.Max(transform.localScale.x, transform.localScale.y) / 2f;
         transform.localScale = new Vector3(ballRadius * 2f, ballRadius * 2f, 1f);
     }
