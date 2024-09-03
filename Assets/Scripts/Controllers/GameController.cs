@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using AmuzoBounce.Mechanics;
+using UnityEngine;
 
 namespace AmuzoBounce.Controllers
 {
     public class GameController : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private Boundary boundary;
         [SerializeField] private GameObject ballPrefab;
 
         private Camera mainCamera;
@@ -23,6 +26,12 @@ namespace AmuzoBounce.Controllers
                 SpawnBall();
         }
 
+        private void FixedUpdate()
+        {
+            if (!boundary.Contains(ball.transform.position))
+                DisableBall();
+        }
+
         private void SpawnBall()
         {
             var mousePosition = Input.mousePosition;
@@ -31,6 +40,11 @@ namespace AmuzoBounce.Controllers
 
             ball.transform.position = ballPosition;
             ball.SetActive(true);
+        }
+
+        private void DisableBall()
+        {
+            ball.SetActive(false);
         }
     }
 }
