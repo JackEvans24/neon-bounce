@@ -34,19 +34,24 @@ namespace AmuzoBounce.Controllers
         private void FixedUpdate()
         {
             if (ballIsActive && !boundary.Contains(ball.transform.position))
-                EndRound();
+                EndLife();
         }
 
         private void HandleClick()
         {
             if (ballIsActive)
                 return;
-            StartNewRound();
+            StartNewLife();
         }
 
-        private void StartNewRound()
+        private void StartNewLife()
         {
+            // TODO: New game
+            if (rounds.Lives <= 0)
+                return;
+
             SpawnBall();
+            rounds.Lives -= 1;
         }
 
         private void SpawnBall()
@@ -70,7 +75,7 @@ namespace AmuzoBounce.Controllers
             Debug.Log($"Score: {score.CurrentScoreTotal}");
         }
 
-        private void EndRound()
+        private void EndLife()
         {
             DisableBall();
 
@@ -79,6 +84,8 @@ namespace AmuzoBounce.Controllers
             
             if (rounds.RoundComplete)
                 rounds.NextRound();
+            else if (rounds.Lives <= 0)
+                Debug.Log("Game over");
         }
 
         private void DisableBall()
