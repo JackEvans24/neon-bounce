@@ -12,6 +12,7 @@ namespace AmuzoBounce.Controllers
         private Camera mainCamera;
         private Ball ball;
 
+        private readonly RoundController rounds = new();
         private readonly ScoreController score = new();
 
         private bool ballIsActive;
@@ -72,9 +73,12 @@ namespace AmuzoBounce.Controllers
         private void EndRound()
         {
             DisableBall();
-            
-            Debug.Log($"Final Score: {score.CurrentScoreTotal}");
+
+            rounds.CurrentScore += score.CurrentScoreTotal;
             score.ResetScore();
+            
+            if (rounds.RoundComplete)
+                rounds.NextRound();
         }
 
         private void DisableBall()
