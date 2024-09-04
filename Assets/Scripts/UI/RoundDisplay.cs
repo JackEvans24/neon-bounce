@@ -1,18 +1,16 @@
 ﻿using AmuzoBounce.Data;
-using TMPro;
+using AmuzoBounce.UI.Components;
 using UnityEngine;
 
 namespace AmuzoBounce.UI
 {
     public class RoundDisplay : MonoBehaviour
     {
-        [SerializeField] private TMP_Text roundLabel;
-        [SerializeField] private TMP_Text targetLabel;
+        [SerializeField] private VariableText targetLabel;
 
         public void UpdateDisplay(RoundData data)
         {
-            roundLabel.text = data.RoundNumber.ToString();
-            targetLabel.text = data.TargetScore.ToString();
+            targetLabel.UpdateText(data.TargetScore.ToString(), true);
         }
     }
 }
