@@ -1,5 +1,4 @@
-﻿using System;
-using AmuzoBounce.Mechanics;
+﻿using AmuzoBounce.Mechanics;
 using AmuzoBounce.UI;
 using UnityEngine;
 
