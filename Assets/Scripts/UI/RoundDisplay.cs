@@ -11,8 +11,8 @@ namespace AmuzoBounce.UI
 
         public void UpdateDisplay(RoundData data)
         {
-            roundLabel.text = $"Round: {data.RoundNumber.ToString()}";
-            targetLabel.text = $"Target: {data.TargetScore.ToString()}";
+            roundLabel.text = data.RoundNumber.ToString();
+            targetLabel.text = data.TargetScore.ToString();
         }
     }
 }
