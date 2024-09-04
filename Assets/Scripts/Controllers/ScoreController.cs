@@ -1,4 +1,6 @@
-﻿namespace AmuzoBounce.Controllers
+﻿using AmuzoBounce.Data;
+
+namespace AmuzoBounce.Controllers
 {
     public class ScoreController
     {
@@ -9,13 +11,24 @@
 
         public bool Overflow;
 
+        public ScoreData ScoreData => new()
+        {
+            CurrentScoreTicker = CurrentScoreTicker,
+            CurrentMultiplier = CurrentMultiplier,
+            CurrentScoreTotal = CurrentScoreTotal
+        };
+
         public ScoreController() => ResetScore();
+
+        public void ResetLifeScores()
+        {
+            CurrentScoreTicker = 1;
+            CurrentMultiplier = 1;
+        }
 
         public void ResetScore()
         {
-            CurrentScoreTicker = 0;
-            CurrentMultiplier = 1;
-
+            ResetLifeScores();
             CurrentScoreTotal = 0L;
 
             Overflow = false;

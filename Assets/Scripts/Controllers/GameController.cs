@@ -12,6 +12,7 @@ namespace AmuzoBounce.Controllers
         
         [Header("UI")]
         [SerializeField] private RoundDisplay roundDisplay;
+        [SerializeField] private ScoreDisplay scoreDisplay;
 
         private Camera mainCamera;
         private Ball ball;
@@ -29,6 +30,7 @@ namespace AmuzoBounce.Controllers
             DisableBall();
             
             roundDisplay.UpdateDisplay(rounds.RoundData);
+            scoreDisplay.UpdateDisplay(score.ScoreData);
         }
 
         private void Update()
@@ -73,20 +75,20 @@ namespace AmuzoBounce.Controllers
 
         private void OnBounce()
         {
-            score.CurrentScoreTicker += 1;
             score.AddCurrentScoreToTotal();
+            score.CurrentScoreTicker += 1;
             
-            Debug.Log($"Score: {score.CurrentScoreTotal}");
+            scoreDisplay.UpdateDisplay(score.ScoreData);
         }
 
         private void EndLife()
         {
             DisableBall();
 
-            rounds.CurrentScore += score.CurrentScoreTotal;
-            score.ResetScore();
+            score.ResetLifeScores();
+            scoreDisplay.UpdateDisplay(score.ScoreData);
 
-            if (rounds.RoundComplete)
+            if (score.CurrentScoreTotal >= rounds.CurrentTarget)
                 StartNextRound();
             else if (rounds.Lives <= 0)
                 ResetGame();
@@ -102,15 +104,17 @@ namespace AmuzoBounce.Controllers
 
         private void StartNextRound()
         {
+            score.ResetScore();
+            scoreDisplay.UpdateDisplay(score.ScoreData);
             rounds.StartNextRound();
             roundDisplay.UpdateDisplay(rounds.RoundData);
         }
 
         private void ResetGame()
         {
-            rounds.ResetRounds();
             score.ResetScore();
-            
+            scoreDisplay.UpdateDisplay(score.ScoreData);
+            rounds.ResetRounds();
             roundDisplay.UpdateDisplay(rounds.RoundData);
         }
     }

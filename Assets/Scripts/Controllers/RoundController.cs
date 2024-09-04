@@ -10,12 +10,9 @@ namespace AmuzoBounce.Controllers
 
         private int roundIndex;
 
-        private ulong CurrentTarget => ROUND_SCORES[roundIndex];
-        
+        public ulong CurrentTarget => ROUND_SCORES[roundIndex];
         public int Lives = STARTING_LIVES;
-        public ulong CurrentScore;
 
-        public bool RoundComplete => CurrentScore >= CurrentTarget;
         public RoundData RoundData => new() { RoundNumber = roundIndex + 1, TargetScore = CurrentTarget };
 
         public void ResetRounds()
@@ -26,9 +23,6 @@ namespace AmuzoBounce.Controllers
 
         public void StartNextRound()
         {
-            Debug.Log($"Beat round {roundIndex + 1}, Target: {CurrentTarget}, Score: {CurrentScore}");
-            CurrentScore = 0L;
-
             roundIndex += 1;
             Lives = STARTING_LIVES;
             
