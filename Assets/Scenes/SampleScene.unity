@@ -157,7 +157,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.4, y: 0.45}
-  m_AnchorMax: {x: 0.6, y: 0.52}
+  m_AnchorMax: {x: 0.6, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 120.3
+  m_fontSize: 85.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -809,8 +809,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2075d524d0c34261b7043aa4323bb79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tickerLabel: {fileID: 612160058}
-  multiplierLabel: {fileID: 1311903413}
+  tickerLabel: {fileID: 612160060}
+  multiplierLabel: {fileID: 1311903415}
   ballTotalLabel: {fileID: 331701708}
 --- !u!1 &519420028
 GameObject:
@@ -1074,6 +1074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 612160057}
   - component: {fileID: 612160059}
+  - component: {fileID: 612160060}
   - component: {fileID: 612160058}
   m_Layer: 5
   m_Name: TickerLabel
@@ -1098,10 +1099,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.45}
-  m_AnchorMax: {x: 0.4, y: 0.55}
+  m_AnchorMax: {x: 0.42, y: 0.52}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &612160058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1149,7 +1150,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 171.85
+  m_fontSize: 120.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1199,6 +1200,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 612160056}
   m_CullTransparentMesh: 1
+--- !u!114 &612160060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612160056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407c4c623ad34deebb6b927932e30eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increase: 0.5
+  maxScale: 2
+  minScale: 1
+  decay: 1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1311903412}
   - component: {fileID: 1311903414}
+  - component: {fileID: 1311903415}
   - component: {fileID: 1311903413}
   m_Layer: 5
   m_Name: MultiplierLabel
@@ -1581,11 +1599,11 @@ RectTransform:
   m_Father: {fileID: 493809777}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.6, y: 0.45}
-  m_AnchorMax: {x: 1, y: 0.55}
+  m_AnchorMin: {x: 0.58, y: 0.45}
+  m_AnchorMax: {x: 1, y: 0.52}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &1311903413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1633,7 +1651,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 171.85
+  m_fontSize: 120.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1683,6 +1701,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311903411}
   m_CullTransparentMesh: 1
+--- !u!114 &1311903415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311903411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407c4c623ad34deebb6b927932e30eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  increase: 0.5
+  maxScale: 2
+  minScale: 1
+  decay: 1
 --- !u!1 &1312944460
 GameObject:
   m_ObjectHideFlags: 0

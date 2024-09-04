@@ -94,7 +94,7 @@ namespace AmuzoBounce.Controllers
             DisableBall();
 
             score.ResetLifeScores();
-            scoreDisplay.UpdateDisplay(score.ScoreData);
+            scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
 
             if (score.Total >= rounds.RoundData.TargetScore)
                 StartNextRound();
@@ -113,7 +113,7 @@ namespace AmuzoBounce.Controllers
         private void StartNextRound()
         {
             score.ResetScore();
-            scoreDisplay.UpdateDisplay(score.ScoreData);
+            scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
             rounds.StartNextRound();
             roundDisplay.UpdateDisplay(rounds.RoundData);
             livesDisplay.SetLives(rounds.Lives);
@@ -122,7 +122,7 @@ namespace AmuzoBounce.Controllers
         private void ResetGame()
         {
             score.ResetScore();
-            scoreDisplay.UpdateDisplay(score.ScoreData);
+            scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
             rounds.ResetRounds();
             roundDisplay.UpdateDisplay(rounds.RoundData);
             livesDisplay.SetLives(rounds.Lives);
