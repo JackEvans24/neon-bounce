@@ -88,7 +88,7 @@ namespace AmuzoBounce.Controllers
             score.ResetLifeScores();
             scoreDisplay.UpdateDisplay(score.ScoreData);
 
-            if (score.CurrentScoreTotal >= rounds.CurrentTarget)
+            if (score.Total >= rounds.CurrentTarget)
                 StartNextRound();
             else if (rounds.Lives <= 0)
                 ResetGame();

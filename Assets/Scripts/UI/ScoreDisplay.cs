@@ -12,9 +12,9 @@ namespace AmuzoBounce.UI
 
         public void UpdateDisplay(ScoreData data)
         {
-            tickerLabel.text = data.CurrentScoreTicker.ToString();
-            multiplierLabel.text = data.CurrentMultiplier.ToString();
-            ballTotalLabel.text = data.Overflow ? "???" : data.CurrentScoreTotal.ToString();
+            tickerLabel.text = data.Ticker.ToString();
+            multiplierLabel.text = data.Multiplier.ToString();
+            ballTotalLabel.text = data.Overflow ? "???" : data.Total.ToString();
         }
     }
 }

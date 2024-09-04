@@ -2,9 +2,11 @@
 {
     public struct ScoreData
     {
-        public uint CurrentScoreTicker;
-        public uint CurrentMultiplier;
-        public ulong CurrentScoreTotal;
+        public uint Ticker;
+        public uint Multiplier;
+        public ulong Total;
         public bool Overflow;
+        
+        public void AddToTotal() => Total += (Ticker * Multiplier);
     }
 }

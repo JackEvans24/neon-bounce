@@ -5,26 +5,24 @@ namespace AmuzoBounce.Controllers
     public class ScoreController
     {
         public ScoreData ScoreData => data;
-        public uint CurrentScoreTicker => data.CurrentScoreTicker;
-        public uint CurrentMultiplier => data.CurrentMultiplier;
-        public ulong CurrentScoreTotal => data.CurrentScoreTotal;
+        public ulong Total => data.Total;
 
         private ScoreData data;
 
         public ScoreController() => ResetScore();
 
-        public void BumpScore() => data.CurrentScoreTicker += 1;
+        public void BumpScore() => data.Ticker += 1;
 
         public void ResetLifeScores()
         {
-            data.CurrentScoreTicker = 1;
-            data.CurrentMultiplier = 1;
+            data.Ticker = 1;
+            data.Multiplier = 1;
         }
 
         public void ResetScore()
         {
             ResetLifeScores();
-            data.CurrentScoreTotal = 0L;
+            data.Total = 0L;
             data.Overflow = false;
         }
 
@@ -33,10 +31,10 @@ namespace AmuzoBounce.Controllers
             if (data.Overflow)
                 return;
 
-            var oldTotal = CurrentScoreTotal;
-            data.CurrentScoreTotal += (CurrentScoreTicker * CurrentMultiplier);
+            var oldTotal = Total;
+            data.AddToTotal();
 
-            if (CurrentScoreTotal < oldTotal)
+            if (Total < oldTotal)
                 data.Overflow = true;
         }
     }
