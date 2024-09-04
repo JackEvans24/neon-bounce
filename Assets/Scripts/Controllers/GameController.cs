@@ -12,6 +12,8 @@ namespace AmuzoBounce.Controllers
         private Camera mainCamera;
         private Ball ball;
 
+        private ScoreController score = new();
+
         private bool ballIsActive;
 
         private void Awake()
@@ -61,12 +63,18 @@ namespace AmuzoBounce.Controllers
 
         private void OnBounce()
         {
-            Debug.Log("Bounce at " + ball.transform.position);
+            score.CurrentScoreTicker += 1;
+            score.AddCurrentScoreToTotal();
+            
+            Debug.Log($"Score: {score.CurrentScoreTotal}");
         }
 
         private void EndRound()
         {
             DisableBall();
+            
+            Debug.Log($"Final Score: {score.CurrentScoreTotal}");
+            score.ResetScore();
         }
 
         private void DisableBall()
