@@ -9,6 +9,12 @@ namespace AmuzoBounce.Mechanics
     {
         public event Action Bounce;
 
+        [Header("References")]
+        [SerializeField] private SpriteRenderer sprite;
+        [SerializeField] private TrailRenderer trail;
+        [SerializeField] private ParticleSystem particles;
+
+        [Header("Movement & Collision")]
         [SerializeField] private float gravity;
         [SerializeField] private float terminalVelocity;
         [SerializeField] private LayerMask collisionLayer;
@@ -28,12 +34,23 @@ namespace AmuzoBounce.Mechanics
             ResetBall();
         }
 
+        private void OnDisable()
+        {
+            sprite.enabled = false;
+            trail.gameObject.SetActive(false);
+            particles.Stop();
+        }
+
         private void ResetBall()
         {
             velocity = Vector3.zero;
 
             ballRadius = Mathf.Max(transform.localScale.x, transform.localScale.y) / 2f;
             transform.localScale = new Vector3(ballRadius * 2f, ballRadius * 2f, 1f);
+
+            sprite.enabled = true;
+            trail.gameObject.SetActive(true);
+            particles.Play();
         }
 
         private void FixedUpdate()

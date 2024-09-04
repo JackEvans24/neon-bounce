@@ -72,8 +72,8 @@ namespace AmuzoBounce.Controllers
             ballPosition.z = 0f;
 
             ball.transform.position = ballPosition;
-            ball.gameObject.SetActive(true);
             ball.Bounce += OnBounce;
+            ball.enabled = true;
 
             ballIsActive = true;
         }
@@ -101,8 +101,8 @@ namespace AmuzoBounce.Controllers
 
         private void DisableBall()
         {
-            ball.gameObject.SetActive(false);
             ball.Bounce -= OnBounce;
+            ball.enabled = false;
 
             ballIsActive = false;
         }
