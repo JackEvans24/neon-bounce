@@ -1746,7 +1746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bloomStep: 0.5
-  bloomDecay: 1
+  bloomDecay: 2
   chromaticAberrationStep: 0.2
   chromaticAberrationDecay: 0.5
 --- !u!1 &1334122320
