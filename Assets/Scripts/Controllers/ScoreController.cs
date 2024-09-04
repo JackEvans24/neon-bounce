@@ -24,29 +24,11 @@ namespace AmuzoBounce.Controllers
             }
         }
 
-        public void ResetLifeScores()
+        public void ResetScore()
         {
             data.Ticker = 1;
             data.Multiplier = 1;
-        }
-
-        public void ResetScore()
-        {
-            ResetLifeScores();
-            data.Total = 0L;
             data.Overflow = false;
-        }
-
-        public void AddCurrentScoreToTotal()
-        {
-            if (data.Overflow)
-                return;
-
-            var oldTotal = Total;
-            data.AddToTotal();
-
-            if (Total < oldTotal)
-                data.Overflow = true;
         }
     }
 }

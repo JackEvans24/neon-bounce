@@ -61,6 +61,8 @@ namespace AmuzoBounce.Controllers
 
         private void StartNewLife()
         {
+            scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
+
             SpawnBall();
 
             rounds.Lives -= 1;
@@ -82,9 +84,7 @@ namespace AmuzoBounce.Controllers
 
         private void OnBounce(BeamData beamData)
         {
-            score.AddCurrentScoreToTotal();
             score.BumpScore(beamData);
-
             scoreDisplay.UpdateDisplay(score.ScoreData);
             
             volumeIntensifier.IncreaseIntensity();
@@ -94,7 +94,6 @@ namespace AmuzoBounce.Controllers
         {
             DisableBall();
 
-            score.ResetLifeScores();
             scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
 
             if (score.Total >= rounds.RoundData.TargetScore)
