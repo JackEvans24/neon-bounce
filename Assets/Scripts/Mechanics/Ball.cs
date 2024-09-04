@@ -112,6 +112,11 @@ namespace AmuzoBounce.Mechanics
             // Reflect velocity
             velocity = Vector3.Reflect(velocity, hit.normal);
             
+            // Get beam and do bounce
+            var beam = hit.transform.GetComponent<Beam>();
+            if (beam != null)
+                beam.Bounce();
+            
             Bounce?.Invoke();
         }
     }
