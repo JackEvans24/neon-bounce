@@ -33,9 +33,11 @@ namespace AmuzoBounce.Controllers
 
         private void FixedUpdate()
         {
-            if (ballIsActive && !boundary.Contains(ball.transform.position))
+            if (BallHasLeftPlayArea())
                 EndLife();
         }
+
+        private bool BallHasLeftPlayArea() => ballIsActive && !boundary.Contains(ball.transform.position);
 
         private void HandleClick()
         {
