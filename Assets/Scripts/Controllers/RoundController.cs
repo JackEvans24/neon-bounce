@@ -10,9 +10,9 @@ namespace AmuzoBounce.Controllers
 
         private int roundIndex;
 
-        public ulong CurrentTarget => ROUND_SCORES[roundIndex];
         public int Lives = STARTING_LIVES;
 
+        public ulong CurrentTarget => ROUND_SCORES[roundIndex];
         public RoundData RoundData => new() { RoundNumber = roundIndex + 1, TargetScore = CurrentTarget };
 
         public void ResetRounds()
