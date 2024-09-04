@@ -11,7 +11,18 @@ namespace AmuzoBounce.Controllers
 
         public ScoreController() => ResetScore();
 
-        public void BumpScore() => data.Ticker += 1;
+        public void BumpScore(BeamData beamData)
+        {
+            switch (beamData.Type)
+            {
+                case BeamData.BeamType.Pink:
+                    data.Ticker += 1;
+                    break;
+                case BeamData.BeamType.Green:
+                    data.Multiplier += 1;
+                    break;
+            }
+        }
 
         public void ResetLifeScores()
         {

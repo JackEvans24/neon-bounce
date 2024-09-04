@@ -1,4 +1,5 @@
 using System;
+using AmuzoBounce.Data;
 using AmuzoBounce.Extensions;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace AmuzoBounce.Mechanics
     [RequireComponent(typeof(Rigidbody2D))]
     public class Ball : MonoBehaviour
     {
-        public event Action Bounce;
+        public event Action<BeamData> Bounce;
 
         [Header("References")]
         [SerializeField] private SpriteRenderer sprite;
@@ -115,9 +116,13 @@ namespace AmuzoBounce.Mechanics
             // Get beam and do bounce
             var beam = hit.transform.GetComponent<Beam>();
             if (beam != null)
-                beam.Bounce();
-            
-            Bounce?.Invoke();
+                HandleBeamHit(beam);
+        }
+
+        private void HandleBeamHit(Beam beam)
+        {
+            beam.Bounce();
+            Bounce?.Invoke(beam.Data);
         }
     }
 }

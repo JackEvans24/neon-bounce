@@ -1,4 +1,5 @@
-﻿using AmuzoBounce.Effects;
+﻿using AmuzoBounce.Data;
+using AmuzoBounce.Effects;
 using AmuzoBounce.Mechanics;
 using AmuzoBounce.UI;
 using UnityEngine;
@@ -79,10 +80,10 @@ namespace AmuzoBounce.Controllers
             ballIsActive = true;
         }
 
-        private void OnBounce()
+        private void OnBounce(BeamData beamData)
         {
             score.AddCurrentScoreToTotal();
-            score.BumpScore();
+            score.BumpScore(beamData);
 
             scoreDisplay.UpdateDisplay(score.ScoreData);
             

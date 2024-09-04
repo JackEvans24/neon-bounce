@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using AmuzoBounce.Data;
+using UnityEngine;
 
 namespace AmuzoBounce.Mechanics
 {
     public class Beam : MonoBehaviour
     {
+        [Header("Data")] [SerializeField] private BeamData data;
+
         [Header("References")]
         [SerializeField] private SpriteRenderer sprite; 
         [SerializeField] private ParticleSystem particles;
@@ -11,6 +14,8 @@ namespace AmuzoBounce.Mechanics
         [Header("Colour")]
         [SerializeField] private Gradient colourIntensityMap;
         [SerializeField] private float intensityDecay;
+
+        public BeamData Data => data;
 
         private float spriteIntensity;
 
