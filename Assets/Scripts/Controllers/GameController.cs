@@ -46,10 +46,6 @@ namespace AmuzoBounce.Controllers
 
         private void StartNewLife()
         {
-            // TODO: New game
-            if (rounds.Lives <= 0)
-                return;
-
             SpawnBall();
             rounds.Lives -= 1;
         }
@@ -85,7 +81,10 @@ namespace AmuzoBounce.Controllers
             if (rounds.RoundComplete)
                 rounds.NextRound();
             else if (rounds.Lives <= 0)
+            {
                 Debug.Log("Game over");
+                ResetGame();
+            }
         }
 
         private void DisableBall()
@@ -94,6 +93,12 @@ namespace AmuzoBounce.Controllers
             ball.Bounce -= OnBounce;
 
             ballIsActive = false;
+        }
+
+        private void ResetGame()
+        {
+            rounds.ResetRounds();
+            score.ResetScore();
         }
     }
 }
