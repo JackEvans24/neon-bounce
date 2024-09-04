@@ -4863,8 +4863,8 @@ MonoBehaviour:
   sprite: {fileID: 3589800875947742166}
   trail: {fileID: 8774983292790728154}
   particles: {fileID: 2351749272044636922}
-  gravity: 9.8
-  terminalVelocity: 15
+  gravity: 15
+  terminalVelocity: 18
   collisionLayer:
     serializedVersion: 2
     m_Bits: 128
