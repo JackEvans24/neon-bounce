@@ -65,12 +65,19 @@ namespace AmuzoBounce.Mechanics
                 frameVelocity.magnitude,
                 collisionLayer
             );
+            // If nothing hit, keep moving
             if (!hit)
             {
                 rb.MovePosition(rb.position + frameVelocity);
                 return;
             }
-
+            // If hit from below, keep moving
+            if (Vector3.Dot(velocity, hit.transform.up) > 0)
+            {
+                rb.MovePosition(rb.position + frameVelocity);
+                return;
+            }
+            
             HandleBounce(frameVelocity, hit);
         }
 
