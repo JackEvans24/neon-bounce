@@ -86,11 +86,11 @@ namespace AmuzoBounce.Mechanics
             // Get bounce vector
             var bounceVector = Vector3.Reflect(frameVelocity, hit.normal);
 
-            // Normalized bounce vector * (velocity - distance to collision)
+            // Move ball to reflected position
             var reflectedPosition = bounceVector.normalized * (frameVelocity.magnitude - hit.distance);
             rb.MovePosition(hit.centroid + reflectedPosition.ToVector2());
 
-            // Bounce velocity
+            // Reflect velocity
             velocity = Vector3.Reflect(velocity, hit.normal);
             
             Bounce?.Invoke();
