@@ -7,6 +7,8 @@
 
         public ulong CurrentScoreTotal;
 
+        public bool Overflow;
+
         public ScoreController() => ResetScore();
 
         public void ResetScore()
@@ -15,9 +17,20 @@
             CurrentMultiplier = 1;
 
             CurrentScoreTotal = 0L;
+
+            Overflow = false;
         }
 
-        // TODO: Handle overflow
-        public void AddCurrentScoreToTotal() => CurrentScoreTotal += (CurrentScoreTicker * CurrentMultiplier);
+        public void AddCurrentScoreToTotal()
+        {
+            if (Overflow)
+                return;
+
+            var oldTotal = CurrentScoreTotal;
+            CurrentScoreTotal += (CurrentScoreTicker * CurrentMultiplier);
+
+            if (CurrentScoreTotal < oldTotal)
+                Overflow = true;
+        }
     }
 }
