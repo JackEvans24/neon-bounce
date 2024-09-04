@@ -1,4 +1,5 @@
 ﻿using AmuzoBounce.Mechanics;
+using AmuzoBounce.UI;
 using UnityEngine;
 
 namespace AmuzoBounce.Controllers
@@ -8,6 +9,9 @@ namespace AmuzoBounce.Controllers
         [Header("References")]
         [SerializeField] private Boundary boundary;
         [SerializeField] private Ball ballPrefab;
+        
+        [Header("UI")]
+        [SerializeField] private RoundDisplay roundDisplay;
 
         private Camera mainCamera;
         private Ball ball;
@@ -23,6 +27,8 @@ namespace AmuzoBounce.Controllers
 
             ball = Instantiate(ballPrefab);
             DisableBall();
+            
+            roundDisplay.UpdateDisplay(rounds.RoundData);
         }
 
         private void Update()
@@ -79,14 +85,11 @@ namespace AmuzoBounce.Controllers
 
             rounds.CurrentScore += score.CurrentScoreTotal;
             score.ResetScore();
-            
+
             if (rounds.RoundComplete)
-                rounds.NextRound();
+                StartNextRound();
             else if (rounds.Lives <= 0)
-            {
-                Debug.Log("Game over");
                 ResetGame();
-            }
         }
 
         private void DisableBall()
@@ -97,10 +100,18 @@ namespace AmuzoBounce.Controllers
             ballIsActive = false;
         }
 
+        private void StartNextRound()
+        {
+            rounds.StartNextRound();
+            roundDisplay.UpdateDisplay(rounds.RoundData);
+        }
+
         private void ResetGame()
         {
             rounds.ResetRounds();
             score.ResetScore();
+            
+            roundDisplay.UpdateDisplay(rounds.RoundData);
         }
     }
 }
