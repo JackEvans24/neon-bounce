@@ -7,8 +7,8 @@ namespace AmuzoBounce.UI
 {
     public class ScoreDisplay : MonoBehaviour
     {
-        [SerializeField] private VariableTextSize tickerLabel;
-        [SerializeField] private VariableTextSize multiplierLabel;
+        [SerializeField] private VariableText tickerLabel;
+        [SerializeField] private VariableText multiplierLabel;
         [SerializeField] private TMP_Text ballTotalLabel;
 
         private ScoreData localData;

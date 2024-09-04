@@ -4,12 +4,18 @@ using UnityEngine;
 namespace AmuzoBounce.UI.Components
 {
     [RequireComponent(typeof(TMP_Text))]
-    public class VariableTextSize : MonoBehaviour
+    public class VariableText : MonoBehaviour
     {
+        [Header("Animation")]
         [SerializeField] private float increase = 0.5f;
+        [SerializeField] private float decay = 0.5f;
+        
+        [Header("Scale")]
         [SerializeField] private float maxScale = 2f;
         [SerializeField] private float minScale = 1f;
-        [SerializeField] private float decay = 0.5f;
+
+        [Header("Colour")]
+        [SerializeField] private Gradient textGradient;
         
         private TMP_Text label;
 
@@ -27,6 +33,9 @@ namespace AmuzoBounce.UI.Components
 
             currentSize = Mathf.Max(minScale, currentSize - decay * Time.fixedDeltaTime);
             label.transform.localScale = Vector3.one * currentSize;
+
+            var scaleT = Mathf.InverseLerp(minScale, maxScale, currentSize);
+            label.color = textGradient.Evaluate(scaleT);
         }
 
         public void UpdateText(string text, bool animate)
