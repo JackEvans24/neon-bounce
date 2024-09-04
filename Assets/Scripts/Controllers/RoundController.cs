@@ -1,5 +1,4 @@
 ﻿using AmuzoBounce.Data;
-using UnityEngine;
 
 namespace AmuzoBounce.Controllers
 {
@@ -8,26 +7,28 @@ namespace AmuzoBounce.Controllers
         private const int STARTING_LIVES = 3;
         private readonly ulong[] ROUND_SCORES = { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
 
-        private int roundIndex;
-
         public int Lives = STARTING_LIVES;
 
-        public ulong CurrentTarget => ROUND_SCORES[roundIndex];
-        public RoundData RoundData => new() { RoundNumber = roundIndex + 1, TargetScore = CurrentTarget };
+        public RoundData RoundData => data;
+
+        private RoundData data;
 
         public void ResetRounds()
         {
-            roundIndex = 0;
+            data.RoundIndex = 0;
+            data.TargetScore = ROUND_SCORES[data.RoundIndex];
             Lives = STARTING_LIVES;
         }
 
         public void StartNextRound()
         {
-            roundIndex += 1;
+            data.RoundIndex += 1;
+            data.TargetScore = ROUND_SCORES[data.RoundIndex];
+
             Lives = STARTING_LIVES;
             
             // TODO: Replace with game over or infinite mode
-            if (roundIndex >= ROUND_SCORES.Length)
+            if (data.RoundIndex >= ROUND_SCORES.Length)
                 ResetRounds();
         }
     }

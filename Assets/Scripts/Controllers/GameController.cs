@@ -28,9 +28,8 @@ namespace AmuzoBounce.Controllers
 
             ball = Instantiate(ballPrefab);
             DisableBall();
-            
-            roundDisplay.UpdateDisplay(rounds.RoundData);
-            scoreDisplay.UpdateDisplay(score.ScoreData);
+
+            ResetGame();
         }
 
         private void Update()
@@ -88,7 +87,7 @@ namespace AmuzoBounce.Controllers
             score.ResetLifeScores();
             scoreDisplay.UpdateDisplay(score.ScoreData);
 
-            if (score.Total >= rounds.CurrentTarget)
+            if (score.Total >= rounds.RoundData.TargetScore)
                 StartNextRound();
             else if (rounds.Lives <= 0)
                 ResetGame();
