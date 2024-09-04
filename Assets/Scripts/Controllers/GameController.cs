@@ -12,7 +12,7 @@ namespace AmuzoBounce.Controllers
         private Camera mainCamera;
         private Ball ball;
 
-        private ScoreController score = new();
+        private readonly ScoreController score = new();
 
         private bool ballIsActive;
 
