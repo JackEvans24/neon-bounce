@@ -16,10 +16,10 @@ namespace AmuzoBounce.Controllers
             switch (beamData.Type)
             {
                 case BeamData.BeamType.Pink:
-                    data.Ticker += 1;
+                    data.Ticker += beamData.Score;
                     break;
                 case BeamData.BeamType.Green:
-                    data.Multiplier += 1;
+                    data.Multiplier += beamData.Score;
                     break;
             }
         }

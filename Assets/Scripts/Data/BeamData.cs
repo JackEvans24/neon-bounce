@@ -8,5 +8,6 @@ namespace AmuzoBounce.Data
         public enum BeamType { Pink, Green }
 
         public BeamType Type;
+        public uint Score = 1;
     }
 }
