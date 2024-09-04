@@ -20,7 +20,7 @@ namespace AmuzoBounce.Mechanics
             var min = mainCamera.ScreenToWorldPoint(new Vector3(0f, 0f, cameraDepth));
             var max = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cameraDepth));
 
-            boundary = new Rect(min.x - margin, min.y - margin, max.x - min.x + margin, max.y - min.y + margin);
+            boundary = new Rect(min.x - margin, min.y - margin, max.x - min.x + (margin * 2), max.y - min.y + (margin * 2));
         }
 
         public bool Contains(Vector2 point)
