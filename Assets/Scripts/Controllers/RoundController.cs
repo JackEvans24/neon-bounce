@@ -23,13 +23,14 @@ namespace AmuzoBounce.Controllers
         public void StartNextRound()
         {
             data.RoundIndex += 1;
-            data.TargetScore = ROUND_SCORES[data.RoundIndex];
 
             Lives = STARTING_LIVES;
             
             // TODO: Replace with game over or infinite mode
             if (data.RoundIndex >= ROUND_SCORES.Length)
                 ResetRounds();
+
+            data.TargetScore = ROUND_SCORES[data.RoundIndex];
         }
     }
 }
