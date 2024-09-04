@@ -1,4 +1,5 @@
-﻿using AmuzoBounce.Mechanics;
+﻿using AmuzoBounce.Effects;
+using AmuzoBounce.Mechanics;
 using AmuzoBounce.UI;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace AmuzoBounce.Controllers
         [Header("References")]
         [SerializeField] private Boundary boundary;
         [SerializeField] private Ball ballPrefab;
+        [SerializeField] private VolumeIntensifier volumeIntensifier;
         
         [Header("UI")]
         [SerializeField] private RoundDisplay roundDisplay;
@@ -81,8 +83,10 @@ namespace AmuzoBounce.Controllers
         {
             score.AddCurrentScoreToTotal();
             score.BumpScore();
-            
+
             scoreDisplay.UpdateDisplay(score.ScoreData);
+            
+            volumeIntensifier.IncreaseIntensity();
         }
 
         private void EndLife()
