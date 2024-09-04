@@ -1,3 +1,4 @@
+using System;
 using AmuzoBounce.Extensions;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace AmuzoBounce.Mechanics
     [RequireComponent(typeof(Rigidbody2D))]
     public class Ball : MonoBehaviour
     {
+        public event Action Bounce;
+
         [SerializeField] private float gravity;
         [SerializeField] private float terminalVelocity;
         [SerializeField] private LayerMask collisionLayer;
@@ -53,33 +56,37 @@ namespace AmuzoBounce.Mechanics
         private void MoveBall()
         {
             var frameVelocity = velocity * Time.fixedDeltaTime;
-            var normalisedVelocity = velocity.normalized;
         
             // Check for collisions
-            var cast = Physics2D.CircleCast(
+            var hit = Physics2D.CircleCast(
                 rb.position,
                 ballRadius,
-                normalisedVelocity,
+                velocity.normalized,
                 frameVelocity.magnitude,
                 collisionLayer
             );
-            if (!cast)
+            if (!hit)
             {
                 rb.MovePosition(rb.position + frameVelocity);
                 return;
             }
 
-            // Get bounce vector
-            var bounceVector = Vector3.Reflect(frameVelocity, cast.normal);
-
-            // Normalized bounce vector * (velocity - distance to collision)
-            var reflectedPosition = bounceVector.normalized * (frameVelocity.magnitude - cast.distance);
-            rb.MovePosition(cast.centroid + reflectedPosition.ToVector2());
-
-            // Bounce velocity
-            velocity = Vector3.Reflect(velocity, cast.normal);
+            HandleBounce(frameVelocity, hit);
         }
 
-        private Vector2 GetNewPosition() => rb.position + (velocity * Time.fixedDeltaTime);
+        private void HandleBounce(Vector2 frameVelocity, RaycastHit2D hit)
+        {
+            // Get bounce vector
+            var bounceVector = Vector3.Reflect(frameVelocity, hit.normal);
+
+            // Normalized bounce vector * (velocity - distance to collision)
+            var reflectedPosition = bounceVector.normalized * (frameVelocity.magnitude - hit.distance);
+            rb.MovePosition(hit.centroid + reflectedPosition.ToVector2());
+
+            // Bounce velocity
+            velocity = Vector3.Reflect(velocity, hit.normal);
+            
+            Bounce?.Invoke();
+        }
     }
 }
