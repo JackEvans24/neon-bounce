@@ -30,7 +30,7 @@ namespace AmuzoBounce.Controllers
 
         private void FixedUpdate()
         {
-            if (!boundary.Contains(ball.transform.position))
+            if (ballIsActive && !boundary.Contains(ball.transform.position))
                 EndRound();
         }
 
