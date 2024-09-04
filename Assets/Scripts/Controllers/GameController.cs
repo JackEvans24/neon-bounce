@@ -76,7 +76,7 @@ namespace AmuzoBounce.Controllers
         private void OnBounce()
         {
             score.AddCurrentScoreToTotal();
-            score.CurrentScoreTicker += 1;
+            score.BumpScore();
             
             scoreDisplay.UpdateDisplay(score.ScoreData);
         }
