@@ -1,21 +1,22 @@
-﻿using UnityEngine;
+﻿using AmuzoBounce.Data;
+using UnityEngine;
 
 namespace AmuzoBounce.Controllers
 {
     public class RoundController
     {
         private const int STARTING_LIVES = 3;
+        private readonly ulong[] ROUND_SCORES = { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
 
-        private ulong[] roundScores = { 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
-        
         private int roundIndex;
 
+        private ulong CurrentTarget => ROUND_SCORES[roundIndex];
+        
         public int Lives = STARTING_LIVES;
-
-        public ulong CurrentTarget => roundScores[roundIndex];
         public ulong CurrentScore;
 
         public bool RoundComplete => CurrentScore >= CurrentTarget;
+        public RoundData RoundData => new() { RoundNumber = roundIndex + 1, TargetScore = CurrentTarget };
 
         public void ResetRounds()
         {
@@ -23,7 +24,7 @@ namespace AmuzoBounce.Controllers
             Lives = STARTING_LIVES;
         }
 
-        public void NextRound()
+        public void StartNextRound()
         {
             Debug.Log($"Beat round {roundIndex + 1}, Target: {CurrentTarget}, Score: {CurrentScore}");
             CurrentScore = 0L;
@@ -32,10 +33,8 @@ namespace AmuzoBounce.Controllers
             Lives = STARTING_LIVES;
             
             // TODO: Replace with game over or infinite mode
-            if (roundIndex >= roundScores.Length)
+            if (roundIndex >= ROUND_SCORES.Length)
                 ResetRounds();
-            
-            Debug.Log($"Progressed to round {roundIndex + 1}, Target: {CurrentTarget}");
         }
     }
 }
