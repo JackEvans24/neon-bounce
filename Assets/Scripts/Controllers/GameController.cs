@@ -7,10 +7,10 @@ namespace AmuzoBounce.Controllers
     {
         [Header("References")]
         [SerializeField] private Boundary boundary;
-        [SerializeField] private GameObject ballPrefab;
+        [SerializeField] private Ball ballPrefab;
 
         private Camera mainCamera;
-        private GameObject ball;
+        private Ball ball;
 
         private bool ballIsActive;
 
@@ -19,39 +19,61 @@ namespace AmuzoBounce.Controllers
             mainCamera = Camera.main;
 
             ball = Instantiate(ballPrefab);
-            ball.SetActive(false);
+            DisableBall();
         }
 
         private void Update()
         {
             if (Input.GetMouseButtonUp(0))
-                SpawnBall();
+                HandleClick();
         }
 
         private void FixedUpdate()
         {
             if (!boundary.Contains(ball.transform.position))
-                DisableBall();
+                EndRound();
+        }
+
+        private void HandleClick()
+        {
+            if (ballIsActive)
+                return;
+            StartNewRound();
+        }
+
+        private void StartNewRound()
+        {
+            SpawnBall();
         }
 
         private void SpawnBall()
         {
-            if (ballIsActive)
-                return;
-
             var mousePosition = Input.mousePosition;
             var ballPosition = mainCamera.ScreenToWorldPoint(mousePosition);
             ballPosition.z = 0f;
 
             ball.transform.position = ballPosition;
-            ball.SetActive(true);
+            ball.gameObject.SetActive(true);
+            ball.Bounce += OnBounce;
 
             ballIsActive = true;
         }
 
+        private void OnBounce()
+        {
+            Debug.Log("Bounce at " + ball.transform.position);
+        }
+
+        private void EndRound()
+        {
+            DisableBall();
+        }
+
         private void DisableBall()
         {
-            ball.SetActive(false);
+            ball.gameObject.SetActive(false);
+            ball.Bounce -= OnBounce;
+
             ballIsActive = false;
         }
     }

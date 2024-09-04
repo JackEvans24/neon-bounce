@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boundary: {fileID: 42424727}
-  ballPrefab: {fileID: 1530944738900809948, guid: 7eb0146e18e0c314e9a948e0c4f6892c, type: 3}
+  ballPrefab: {fileID: 1530944738900809951, guid: 7eb0146e18e0c314e9a948e0c4f6892c, type: 3}
 --- !u!4 &304555508
 Transform:
   m_ObjectHideFlags: 0
