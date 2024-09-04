@@ -14,7 +14,7 @@ namespace AmuzoBounce.UI
         {
             tickerLabel.text = data.CurrentScoreTicker.ToString();
             multiplierLabel.text = data.CurrentMultiplier.ToString();
-            ballTotalLabel.text = data.CurrentScoreTotal.ToString();
+            ballTotalLabel.text = data.Overflow ? "???" : data.CurrentScoreTotal.ToString();
         }
     }
 }

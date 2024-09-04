@@ -5,5 +5,6 @@
         public uint CurrentScoreTicker;
         public uint CurrentMultiplier;
         public ulong CurrentScoreTotal;
+        public bool Overflow;
     }
 }
