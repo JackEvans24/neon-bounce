@@ -1,4 +1,5 @@
-﻿using AmuzoBounce.Mechanics;
+﻿using System;
+using AmuzoBounce.Mechanics;
 using AmuzoBounce.UI;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace AmuzoBounce.Controllers
         [Header("UI")]
         [SerializeField] private RoundDisplay roundDisplay;
         [SerializeField] private ScoreDisplay scoreDisplay;
+        [SerializeField] private LivesDisplay livesDisplay;
 
         private Camera mainCamera;
         private Ball ball;
@@ -25,10 +27,12 @@ namespace AmuzoBounce.Controllers
         private void Awake()
         {
             mainCamera = Camera.main;
-
             ball = Instantiate(ballPrefab);
-            DisableBall();
+        }
 
+        private void Start()
+        {
+            DisableBall();
             ResetGame();
         }
 
@@ -56,7 +60,9 @@ namespace AmuzoBounce.Controllers
         private void StartNewLife()
         {
             SpawnBall();
+
             rounds.Lives -= 1;
+            livesDisplay.SetLives(rounds.Lives);
         }
 
         private void SpawnBall()
@@ -107,6 +113,7 @@ namespace AmuzoBounce.Controllers
             scoreDisplay.UpdateDisplay(score.ScoreData);
             rounds.StartNextRound();
             roundDisplay.UpdateDisplay(rounds.RoundData);
+            livesDisplay.SetLives(rounds.Lives);
         }
 
         private void ResetGame()
@@ -115,6 +122,7 @@ namespace AmuzoBounce.Controllers
             scoreDisplay.UpdateDisplay(score.ScoreData);
             rounds.ResetRounds();
             roundDisplay.UpdateDisplay(rounds.RoundData);
+            livesDisplay.SetLives(rounds.Lives);
         }
     }
 }
