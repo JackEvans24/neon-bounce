@@ -19,6 +19,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         [Header("References")]
         [SerializeField] private BallController ballController;
         [SerializeField] private VolumeIntensifier volumeIntensifier;
+        [SerializeField] private CameraShake cameraShake;
 
         [Header("UI")]
         [SerializeField] private HintDisplay hintDisplay;
@@ -89,6 +90,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             scoreDisplay.UpdateDisplay(score);
             
             volumeIntensifier.IncreaseIntensity();
+            cameraShake.AddImpulse();
         }
 
         private void EndLife()
