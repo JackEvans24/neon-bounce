@@ -8,13 +8,14 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override State State => State.ShapePlacement;
 
         [Header("References")]
+        [SerializeField] private GameObject[] beamPrefabs;
         [SerializeField] private Transform beamParent;
-        [SerializeField] private GameObject beamPrefab;
 
         [Header("UI")]
         [SerializeField] private HintDisplay hintDisplay;
 
         private Camera mainCamera;
+        private GameObject beamPrefab;
 
         private void Start()
         {
@@ -24,6 +25,8 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override void OnStateEnter(StateContext ctx)
         {
             base.OnStateEnter(ctx);
+
+            beamPrefab = beamPrefabs[ctx.RoundIndex % beamPrefabs.Length];
 
             hintDisplay.gameObject.SetActive(true);
             hintDisplay.UpdateText("Place beam");
