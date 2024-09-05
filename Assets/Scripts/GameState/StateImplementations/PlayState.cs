@@ -94,11 +94,7 @@ namespace AmuzoBounce.GameState.StateImplementations
                 InvokeStateChange(State.Play);
             }
             else if (lives <= 0)
-            {
-                context.RoundIndex = 0;
-                // TODO: Move to game over state
-                InvokeStateChange(State.Play);
-            }
+                InvokeStateChange(State.GameOver);
         }
     }
 }
