@@ -1,5 +1,6 @@
 ﻿using AmuzoBounce.Data;
 using AmuzoBounce.Effects;
+using AmuzoBounce.Extensions;
 using AmuzoBounce.Mechanics;
 using AmuzoBounce.UI;
 using UnityEngine;
@@ -9,8 +10,7 @@ namespace AmuzoBounce.Controllers
     public class GameController : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private Boundary boundary;
-        [SerializeField] private Ball ballPrefab;
+        [SerializeField] private BallController ballController;
         [SerializeField] private VolumeIntensifier volumeIntensifier;
         
         [Header("UI")]
@@ -19,22 +19,20 @@ namespace AmuzoBounce.Controllers
         [SerializeField] private LivesDisplay livesDisplay;
 
         private Camera mainCamera;
-        private Ball ball;
 
         private readonly RoundController rounds = new();
         private readonly ScoreController score = new();
 
-        private bool ballIsActive;
-
         private void Awake()
         {
             mainCamera = Camera.main;
-            ball = Instantiate(ballPrefab);
         }
 
         private void Start()
         {
-            DisableBall();
+            ballController.Bounce += OnBounce;
+            ballController.BallLeftArea += EndLife;
+
             ResetGame();
         }
 
@@ -44,42 +42,21 @@ namespace AmuzoBounce.Controllers
                 HandleClick();
         }
 
-        private void FixedUpdate()
-        {
-            if (BallHasLeftPlayArea())
-                EndLife();
-        }
-
-        private bool BallHasLeftPlayArea() => ballIsActive && !boundary.Contains(ball.transform.position);
-
         private void HandleClick()
         {
-            if (ballIsActive)
-                return;
-            StartNewLife();
+            if (ballController.CanDropBall)
+                StartNewLife();
         }
 
         private void StartNewLife()
         {
             scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
 
-            SpawnBall();
+            var worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            ballController.SpawnBall(worldPosition.ToVector2());
 
             rounds.Lives -= 1;
             livesDisplay.SetLives(rounds.Lives);
-        }
-
-        private void SpawnBall()
-        {
-            var mousePosition = Input.mousePosition;
-            var ballPosition = mainCamera.ScreenToWorldPoint(mousePosition);
-            ballPosition.z = 0f;
-
-            ball.transform.position = ballPosition;
-            ball.Bounce += OnBounce;
-            ball.enabled = true;
-
-            ballIsActive = true;
         }
 
         private void OnBounce(BeamData beamData)
@@ -92,22 +69,12 @@ namespace AmuzoBounce.Controllers
 
         private void EndLife()
         {
-            DisableBall();
-
             scoreDisplay.UpdateDisplay(score.ScoreData, animate: false);
 
             if (score.Total >= rounds.RoundData.TargetScore)
                 StartNextRound();
             else if (rounds.Lives <= 0)
                 ResetGame();
-        }
-
-        private void DisableBall()
-        {
-            ball.Bounce -= OnBounce;
-            ball.enabled = false;
-
-            ballIsActive = false;
         }
 
         private void StartNextRound()
