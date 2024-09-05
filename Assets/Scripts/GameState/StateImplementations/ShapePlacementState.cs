@@ -20,7 +20,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         private Camera mainCamera;
 
         private BeamType beamType;
-        // private float beamRotation;
+        private Vector3 beamRotation;
 
         private void Start()
         {
@@ -31,13 +31,15 @@ namespace AmuzoBounce.GameState.StateImplementations
         {
             base.OnStateEnter(ctx);
 
-            beamType = (BeamType)(ctx.RoundIndex % 2);
+            var roundType = ctx.RoundIndex % 2;
+            beamType = (BeamType)roundType;
 
-            // beamRotation = Random.Range(1, 5) * 10;
-            // if (Random.Range(0, 2) / 2 == 0)
-            //     beamRotation *= -1;
+            beamRotation.z = Random.Range(1, 7) * 10;
+            if (roundType % 2 == 0)
+                beamRotation.z *= -1;
             
             beamPreview.Initialise(beamType);
+            beamPreview.transform.eulerAngles = beamRotation;
             beamPreview.gameObject.SetActive(true);
 
             hintDisplay.gameObject.SetActive(true);
@@ -53,7 +55,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             
             var beam = Instantiate(beamPrefab, beamParent);
             beam.transform.position = worldPosition;
-            // beam.transform.eulerAngles = new Vector3(0, 0, beamRotation);
+            beam.transform.eulerAngles = beamRotation;
             beam.Initialise(beamType);
 
             InvokeStateChange(State.Play);
