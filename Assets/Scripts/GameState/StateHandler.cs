@@ -9,9 +9,9 @@ namespace AmuzoBounce.GameState
 
         public abstract State State { get; }
         
-        public virtual void OnStateEnter(StateContext context) { }
+        public virtual void OnStateEnter(StateContext ctx) { }
         public virtual void HandleClick() { }
-        public virtual void OnStateExit() { }
+        public virtual void OnStateExit(StateContext ctx) { }
 
         protected void InvokeStateChange(State state) => StateChangeRequested?.Invoke(state);
     }

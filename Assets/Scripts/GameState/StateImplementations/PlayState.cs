@@ -25,19 +25,14 @@ namespace AmuzoBounce.GameState.StateImplementations
 
         private Camera mainCamera;
 
-        private StateContext context;
-
         private ScoreData score;
         private uint targetScore;
         private int lives;
 
-        private void Awake()
-        {
-            mainCamera = Camera.main;
-        }
-
         private void Start()
         {
+            mainCamera = Camera.main;
+
             ballController.Bounce += OnBounce;
             ballController.BallLeftArea += EndLife;
         }
@@ -46,10 +41,8 @@ namespace AmuzoBounce.GameState.StateImplementations
         {
             base.OnStateEnter(ctx);
 
-            context = ctx;
-            
             score.Reset();
-            targetScore = RoundTargetService.GetTargetScore(context.RoundIndex);
+            targetScore = RoundTargetService.GetTargetScore(ctx.RoundIndex);
             lives = STARTING_LIVES;
 
             scoreDisplay.UpdateDisplay(score, animate: false);
@@ -62,6 +55,12 @@ namespace AmuzoBounce.GameState.StateImplementations
             base.HandleClick();
             if (ballController.CanDropBall)
                 StartNewLife();
+        }
+
+        public override void OnStateExit(StateContext ctx)
+        {
+            base.OnStateExit(ctx);
+            ctx.RoundIndex++;
         }
 
         private void StartNewLife()
@@ -88,11 +87,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             scoreDisplay.UpdateDisplay(score, animate: false);
 
             if (score.Total >= targetScore)
-            {
-                context.RoundIndex++;
-                // TODO: Move to placement state
-                InvokeStateChange(State.Play);
-            }
+                InvokeStateChange(State.ShapePlacement);
             else if (lives <= 0)
                 InvokeStateChange(State.GameOver);
         }

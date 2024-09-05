@@ -56,7 +56,7 @@ namespace AmuzoBounce.GameState
             
             // Exit current state
             if (states.TryGetValue(currentState, out var currentStateHandler))
-                currentStateHandler.OnStateExit();
+                currentStateHandler.OnStateExit(context);
             // Warn if this fails
             else
                 Debug.LogWarning($"Unable to process state exit: {currentState}, state not defined");

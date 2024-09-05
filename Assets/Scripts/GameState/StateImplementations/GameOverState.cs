@@ -9,10 +9,10 @@ namespace AmuzoBounce.GameState.StateImplementations
         [Header("UI")]
         [SerializeField] private GameObject gameOverUI;
 
-        public override void OnStateEnter(StateContext context)
+        public override void OnStateEnter(StateContext ctx)
         {
-            base.OnStateEnter(context);
-            context.RoundIndex = 0;
+            base.OnStateEnter(ctx);
+            ctx.RoundIndex = 0;
             gameOverUI.SetActive(true);
         }
 
@@ -23,9 +23,9 @@ namespace AmuzoBounce.GameState.StateImplementations
             InvokeStateChange(State.Play);
         }
 
-        public override void OnStateExit()
+        public override void OnStateExit(StateContext ctx)
         {
-            base.OnStateExit();
+            base.OnStateExit(ctx);
             gameOverUI.SetActive(false);
         }
     }
