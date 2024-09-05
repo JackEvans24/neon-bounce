@@ -13,6 +13,8 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override State State => State.Play;
 
         private const int STARTING_LIVES = 3;
+        private const string DROP_HINT = "Drop Ball";
+        private const string WAIT_HINT = "Await Points";
         
         [Header("References")]
         [SerializeField] private BallController ballController;
@@ -47,7 +49,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             lives = STARTING_LIVES;
 
             hintDisplay.gameObject.SetActive(true);
-            hintDisplay.UpdateText("Drop the ball");
+            hintDisplay.UpdateText(DROP_HINT);
 
             scoreDisplay.UpdateDisplay(score, animate: false);
             roundDisplay.UpdateDisplay(targetScore);
@@ -72,6 +74,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         private void StartNewLife()
         {
             scoreDisplay.UpdateDisplay(score, animate: false);
+            hintDisplay.UpdateText(WAIT_HINT);
 
             var worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             ballController.SpawnBall(worldPosition.ToVector2());
@@ -91,6 +94,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         private void EndLife()
         {
             scoreDisplay.UpdateDisplay(score, animate: false);
+            hintDisplay.UpdateText(DROP_HINT);
 
             if (score.Total >= targetScore)
                 InvokeStateChange(State.ShapePlacement);
