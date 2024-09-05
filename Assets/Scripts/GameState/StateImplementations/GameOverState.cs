@@ -30,8 +30,10 @@ namespace AmuzoBounce.GameState.StateImplementations
             base.OnStateExit(ctx);
 
             gameOverUI.SetActive(false);
+            
             foreach (Transform beam in beamParent)
                 Destroy(beam.gameObject);
+            ctx.PlacedBeamPositions.Clear();
         }
     }
 }
