@@ -14,6 +14,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         [SerializeField] private Transform beamParent;
 
         [Header("UI")]
+        [SerializeField] private Beam beamPreview;
         [SerializeField] private HintDisplay hintDisplay;
 
         private Camera mainCamera;
@@ -35,6 +36,9 @@ namespace AmuzoBounce.GameState.StateImplementations
             // beamRotation = Random.Range(1, 5) * 10;
             // if (Random.Range(0, 2) / 2 == 0)
             //     beamRotation *= -1;
+            
+            beamPreview.Initialise(beamType);
+            beamPreview.gameObject.SetActive(true);
 
             hintDisplay.gameObject.SetActive(true);
             hintDisplay.UpdateText("Place beam");
@@ -58,7 +62,9 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override void OnStateExit(StateContext ctx)
         {
             base.OnStateExit(ctx);
+
             hintDisplay.gameObject.SetActive(false);
+            beamPreview.gameObject.SetActive(false);
         }
     }
 }
