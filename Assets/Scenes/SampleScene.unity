@@ -1544,6 +1544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballController: {fileID: 1756964343}
   volumeIntensifier: {fileID: 1312944463}
+  hintDisplay: {fileID: 2132678124}
   roundDisplay: {fileID: 152054105}
   scoreDisplay: {fileID: 493809778}
   livesDisplay: {fileID: 1334122323}

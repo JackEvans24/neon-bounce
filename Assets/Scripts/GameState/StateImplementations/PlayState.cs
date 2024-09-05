@@ -19,6 +19,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         [SerializeField] private VolumeIntensifier volumeIntensifier;
 
         [Header("UI")]
+        [SerializeField] private HintDisplay hintDisplay;
         [SerializeField] private RoundDisplay roundDisplay;
         [SerializeField] private ScoreDisplay scoreDisplay;
         [SerializeField] private LivesDisplay livesDisplay;
@@ -45,6 +46,9 @@ namespace AmuzoBounce.GameState.StateImplementations
             targetScore = RoundTargetService.GetTargetScore(ctx.RoundIndex);
             lives = STARTING_LIVES;
 
+            hintDisplay.gameObject.SetActive(true);
+            hintDisplay.UpdateText("Drop the ball");
+
             scoreDisplay.UpdateDisplay(score, animate: false);
             roundDisplay.UpdateDisplay(targetScore);
             livesDisplay.SetLives(lives);
@@ -60,7 +64,9 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override void OnStateExit(StateContext ctx)
         {
             base.OnStateExit(ctx);
+            
             ctx.RoundIndex++;
+            hintDisplay.gameObject.SetActive(false);
         }
 
         private void StartNewLife()
