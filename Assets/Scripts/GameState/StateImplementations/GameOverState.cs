@@ -22,8 +22,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override void HandleClick()
         {
             base.HandleClick();
-            // TODO: Change to whatever the default first state is
-            InvokeStateChange(State.Play);
+            InvokeStateChange(State.ShapePlacement);
         }
 
         public override void OnStateExit(StateContext ctx)
