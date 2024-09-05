@@ -4,6 +4,7 @@
     {
         None,
         Play,
-        GameOver
+        GameOver,
+        ShapePlacement
     }
 }
