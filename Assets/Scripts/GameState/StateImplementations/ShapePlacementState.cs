@@ -19,6 +19,7 @@ namespace AmuzoBounce.GameState.StateImplementations
 
         private Camera mainCamera;
 
+        private Beam currentRoundBeam;
         private BeamType beamType;
         private Vector3 beamRotation;
 
@@ -41,6 +42,11 @@ namespace AmuzoBounce.GameState.StateImplementations
             beamPreview.Initialise(beamType);
             beamPreview.transform.eulerAngles = beamRotation;
             beamPreview.gameObject.SetActive(true);
+            
+            currentRoundBeam = Instantiate(beamPrefab, beamParent);
+            currentRoundBeam.transform.eulerAngles = beamRotation;
+            currentRoundBeam.Initialise(beamType);
+            currentRoundBeam.gameObject.SetActive(false);
 
             hintDisplay.gameObject.SetActive(true);
             hintDisplay.UpdateText("Place beam");
@@ -53,10 +59,8 @@ namespace AmuzoBounce.GameState.StateImplementations
             var worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             worldPosition.z = 0f;
             
-            var beam = Instantiate(beamPrefab, beamParent);
-            beam.transform.position = worldPosition;
-            beam.transform.eulerAngles = beamRotation;
-            beam.Initialise(beamType);
+            currentRoundBeam.transform.position = worldPosition;
+            currentRoundBeam.gameObject.SetActive(true);
 
             InvokeStateChange(State.Play);
         }
