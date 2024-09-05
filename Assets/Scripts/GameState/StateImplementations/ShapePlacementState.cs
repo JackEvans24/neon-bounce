@@ -45,7 +45,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             var roundType = ctx.RoundIndex % 2;
             beamType = (BeamType)roundType;
 
-            var maxRotation = Mathf.Min(7, ctx.RoundIndex + 2);
+            var maxRotation = Mathf.Min(18, (ctx.RoundIndex * 2) + 2);
             beamRotation.z = Random.Range(1, maxRotation) * 10;
             if (roundType % 2 == 0)
                 beamRotation.z *= -1;
