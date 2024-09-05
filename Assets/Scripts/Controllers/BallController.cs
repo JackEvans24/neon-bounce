@@ -7,7 +7,7 @@ namespace AmuzoBounce.Controllers
 {
     public class BallController : MonoBehaviour
     {
-        public event Action<BeamData> Bounce;
+        public event Action<BeamType> Bounce;
         public event Action BallLeftArea;
 
         public bool CanDropBall => !ballIsActive;
@@ -58,6 +58,6 @@ namespace AmuzoBounce.Controllers
             ballIsActive = false;
         }
 
-        private void OnBounce(BeamData data) => Bounce?.Invoke(data);
+        private void OnBounce(BeamType data) => Bounce?.Invoke(data);
     }
 }

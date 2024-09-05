@@ -1,4 +1,6 @@
-﻿using AmuzoBounce.UI;
+﻿using AmuzoBounce.Data;
+using AmuzoBounce.Mechanics;
+using AmuzoBounce.UI;
 using UnityEngine;
 
 namespace AmuzoBounce.GameState.StateImplementations
@@ -8,14 +10,16 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override State State => State.ShapePlacement;
 
         [Header("References")]
-        [SerializeField] private GameObject[] beamPrefabs;
+        [SerializeField] private Beam beamPrefab;
         [SerializeField] private Transform beamParent;
 
         [Header("UI")]
         [SerializeField] private HintDisplay hintDisplay;
 
         private Camera mainCamera;
-        private GameObject beamPrefab;
+
+        private BeamType beamType;
+        // private float beamRotation;
 
         private void Start()
         {
@@ -26,7 +30,11 @@ namespace AmuzoBounce.GameState.StateImplementations
         {
             base.OnStateEnter(ctx);
 
-            beamPrefab = beamPrefabs[ctx.RoundIndex % beamPrefabs.Length];
+            beamType = (BeamType)(ctx.RoundIndex % 2);
+
+            // beamRotation = Random.Range(1, 5) * 10;
+            // if (Random.Range(0, 2) / 2 == 0)
+            //     beamRotation *= -1;
 
             hintDisplay.gameObject.SetActive(true);
             hintDisplay.UpdateText("Place beam");
@@ -41,7 +49,9 @@ namespace AmuzoBounce.GameState.StateImplementations
             
             var beam = Instantiate(beamPrefab, beamParent);
             beam.transform.position = worldPosition;
-            
+            // beam.transform.eulerAngles = new Vector3(0, 0, beamRotation);
+            beam.Initialise(beamType);
+
             InvokeStateChange(State.Play);
         }
 

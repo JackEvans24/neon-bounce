@@ -80,9 +80,9 @@ namespace AmuzoBounce.GameState.StateImplementations
             livesDisplay.SetLives(lives);
         }
 
-        private void OnBounce(BeamData beamData)
+        private void OnBounce(BeamType beamType)
         {
-            score.BumpScore(beamData);
+            score.BumpScore(beamType);
             scoreDisplay.UpdateDisplay(score);
             
             volumeIntensifier.IncreaseIntensity();

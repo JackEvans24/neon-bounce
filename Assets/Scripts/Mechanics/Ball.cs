@@ -8,7 +8,7 @@ namespace AmuzoBounce.Mechanics
     [RequireComponent(typeof(Rigidbody2D))]
     public class Ball : MonoBehaviour
     {
-        public event Action<BeamData> Bounce;
+        public event Action<BeamType> Bounce;
 
         [Header("References")]
         [SerializeField] private SpriteRenderer sprite;
@@ -122,7 +122,7 @@ namespace AmuzoBounce.Mechanics
         private void HandleBeamHit(Beam beam)
         {
             beam.Bounce();
-            Bounce?.Invoke(beam.Data);
+            Bounce?.Invoke(beam.BeamType);
         }
     }
 }

@@ -13,15 +13,15 @@
             Multiplier = 1;
         }
         
-        public void BumpScore(BeamData beamData)
+        public void BumpScore(BeamType type)
         {
-            switch (beamData.Type)
+            switch (type)
             {
-                case BeamData.BeamType.Pink:
-                    Ticker += beamData.Score;
+                case BeamType.Pink:
+                    Ticker += 1;
                     break;
-                case BeamData.BeamType.Green:
-                    Multiplier += beamData.Score;
+                case BeamType.Green:
+                    Multiplier += 1;
                     break;
             }
         }
