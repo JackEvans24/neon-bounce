@@ -8,7 +8,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override State State => State.ShapePlacement;
 
         [Header("References")]
-        [SerializeField] private Transform parent;
+        [SerializeField] private Transform beamParent;
         [SerializeField] private GameObject beamPrefab;
 
         [Header("UI")]
@@ -36,7 +36,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             var worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             worldPosition.z = 0f;
             
-            var beam = Instantiate(beamPrefab, parent);
+            var beam = Instantiate(beamPrefab, beamParent);
             beam.transform.position = worldPosition;
             
             InvokeStateChange(State.Play);

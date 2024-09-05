@@ -6,6 +6,9 @@ namespace AmuzoBounce.GameState.StateImplementations
     {
         public override State State => State.GameOver;
 
+        [Header("References")]
+        [SerializeField] private Transform beamParent;
+
         [Header("UI")]
         [SerializeField] private GameObject gameOverUI;
 
@@ -26,7 +29,10 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override void OnStateExit(StateContext ctx)
         {
             base.OnStateExit(ctx);
+
             gameOverUI.SetActive(false);
+            foreach (Transform beam in beamParent)
+                Destroy(beam.gameObject);
         }
     }
 }
