@@ -1,5 +1,4 @@
-﻿using AmuzoBounce.Data;
-using AmuzoBounce.UI.Components;
+﻿using AmuzoBounce.UI.Components;
 using UnityEngine;
 
 namespace AmuzoBounce.UI
@@ -8,9 +7,9 @@ namespace AmuzoBounce.UI
     {
         [SerializeField] private VariableText targetLabel;
 
-        public void UpdateDisplay(RoundData data)
+        public void UpdateDisplay(uint targetScore)
         {
-            targetLabel.UpdateText(data.TargetScore.ToString(), true);
+            targetLabel.UpdateText(targetScore.ToString(), true);
         }
     }
 }

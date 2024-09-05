@@ -19,7 +19,7 @@ namespace AmuzoBounce.UI
             if (data.Multiplier != localData.Multiplier)
                 multiplierLabel.UpdateText(data.Multiplier.ToString(), animate);
             if (data.Total != localData.Total)
-                ballTotalLabel.UpdateText(data.Overflow ? "???" : data.Total.ToString(), animate);
+                ballTotalLabel.UpdateText(data.Total.ToString(), animate);
 
             localData = data;
         }
