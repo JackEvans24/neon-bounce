@@ -15,6 +15,7 @@ namespace AmuzoBounce.Controllers
         [SerializeField] private Boundary boundary;
         [SerializeField] private Ball ballPrefab;
         [SerializeField] private Transform lastDropPoint;
+        [SerializeField] private BallTracer ballTracer;
 
         private Ball ball;
         private bool ballIsActive;
@@ -52,6 +53,8 @@ namespace AmuzoBounce.Controllers
             lastDropPoint.gameObject.SetActive(true);
 
             ballIsActive = true;
+            
+            ballTracer.StartRecording(ball.transform);
         }
 
         private void DisableBall()
@@ -60,9 +63,13 @@ namespace AmuzoBounce.Controllers
             ball.enabled = false;
 
             ballIsActive = false;
+            
+            ballTracer.StopRecording();
         }
 
         public void ResetDropPointIndicator() => lastDropPoint.gameObject.SetActive(false);
+
+        public void SetTracerActive(bool active) => ballTracer.SetLineActive(active);
 
         private void OnBounce(BeamType data) => Bounce?.Invoke(data);
     }
