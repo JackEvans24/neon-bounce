@@ -10,6 +10,7 @@ namespace AmuzoBounce.Effects
         [Header("Bloom")]
         [SerializeField] private float bloomStep = 0.2f;
         [SerializeField] private float bloomDecay = 0.2f;
+        [SerializeField] private float maxBloom = 4f;
         
         [Header("Chromatic Aberration")]
         [SerializeField] private float chromaticAberrationStep = 0.1f;
@@ -35,7 +36,7 @@ namespace AmuzoBounce.Effects
 
         public void IncreaseIntensity()
         {
-            bloom.intensity.value += bloomStep;
+            bloom.intensity.value = Mathf.Min(maxBloom, bloom.intensity.value + bloomStep);
             chromaticAberration.intensity.value += chromaticAberrationStep;
         }
     }
