@@ -31,21 +31,21 @@ Once you pass the score target, you are gifted another platform to place. Play f
 As always, features had to be cut, and I'm aware of places where the game design has some shortcomings. Things I would focus on next would include:
 
 - Code quality
-  - Better separation of state and UI - A single game controller script was refactored into a state machine to better handle things like switching between placement/play/gameover states, but in a more complete project I would go further, using the states to handle game state (duh), and separate view classes to handle Game UI. This perhaps would have been excessive for this project, but it creates a good foundation to work from.
-  - Command pattern for how beams interact with the rest of the game - having the score struct take a `BeamData` param to work out what it should do is way less extensible than having the beams tell the score what to do. Also opens the door for different effects with lives and the beams themselves.
+    - Better separation of state and UI - A single game controller script was refactored into a state machine to better handle things like switching between placement/play/gameover states, but in a more complete project I would go further, using the states to handle game state (duh), and separate view classes to handle Game UI. This perhaps would have been excessive for this project, but it creates a good foundation to work from.
+    - Command pattern for how beams interact with the rest of the game - having the score struct take a `BeamData` param to work out what it should do is way less extensible than having the beams tell the score what to do. Also opens the door for different effects with lives and the beams themselves.
 - QoL
-  - Confirm button when placing a platform.
-  - Show platform overlap areas - it's annoying to have to guess how close to another beam you can place the next one.
-  - Ability to sell existing shapes to make room for new ones.
-  - Ability to skip shape placement for a score bonus.
+    - Confirm button when placing a platform.
+    - Show platform overlap areas - it's annoying to have to guess how close to another beam you can place the next one.
+    - Ability to sell existing shapes to make room for new ones.
+    - Ability to skip shape placement for a score bonus.
 - Content
-  - More shapes - e.g. Chevrons, Diamonds
-  - Shape modifiers - e.g.:
-    - Friction
-    - Increased ball velocity
-    - Disappear on hit
-    - Moving beams
-    - Ball saver which reduces score
+    - More shapes - e.g. Chevrons, Diamonds
+    - Shape modifiers - e.g.:
+        - Friction
+        - Increased ball velocity
+        - Disappear on hit
+        - Moving beams
+        - Ball saver which reduces score
 - Juice
-  - Ball squash and stretch
-  - Better text animation
+    - Ball squash and stretch
+    - Better text animation
