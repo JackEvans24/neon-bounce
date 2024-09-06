@@ -119,7 +119,7 @@ namespace AmuzoBounce.GameState.StateImplementations
 
             var worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             ballController.SpawnBall(worldPosition.ToVector2());
-            ballController.SetTracerActive(false);
+            ballController.SetAssistItemsActive(false);
 
             lives -= 1;
             livesDisplay.SetLives(lives);
@@ -139,7 +139,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             scoreDisplay.UpdateDisplay(score, animate: false);
             hintDisplay.UpdateText(DROP_HINT);
 
-            ballController.SetTracerActive(true);
+            ballController.SetAssistItemsActive(true);
 
             if (score.Total >= targetScore)
                 StartCoroutine(TriggerShapePlacement());
@@ -161,7 +161,7 @@ namespace AmuzoBounce.GameState.StateImplementations
 
         private void GoToGameOver()
         {
-            ballController.ResetDropPointIndicator();
+            ballController.SetAssistItemsActive(false);
             InvokeStateChange(State.GameOver);
         }
     }

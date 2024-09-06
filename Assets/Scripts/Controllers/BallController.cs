@@ -51,7 +51,6 @@ namespace AmuzoBounce.Controllers
             ball.enabled = true;
 
             lastDropPoint.position = ballPosition;
-            lastDropPoint.gameObject.SetActive(AssistMode);
 
             ballIsActive = true;
             
@@ -68,9 +67,11 @@ namespace AmuzoBounce.Controllers
             ballTracer.StopRecording();
         }
 
-        public void ResetDropPointIndicator() => lastDropPoint.gameObject.SetActive(false);
-
-        public void SetTracerActive(bool active) => ballTracer.SetLineActive(AssistMode && active);
+        public void SetAssistItemsActive(bool active)
+        {
+            lastDropPoint.gameObject.SetActive(AssistMode && active);
+            ballTracer.SetLineActive(AssistMode && active);
+        }
 
         private void OnBounce(BeamType data) => Bounce?.Invoke(data);
     }
