@@ -36,7 +36,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         [SerializeField] private LivesDisplay livesDisplay;
 
         private Camera mainCamera;
-        private Coroutine textCoroutine;
+        private Coroutine setupCoroutine;
 
         private ScoreData score;
         private uint targetScore;
@@ -65,7 +65,7 @@ namespace AmuzoBounce.GameState.StateImplementations
 
             scoreDisplay.UpdateDisplay(score, animate: false);
 
-            textCoroutine = StartCoroutine(HandleRoundSetup());
+            setupCoroutine = StartCoroutine(HandleRoundSetup());
         }
 
         public override void HandleClick()
@@ -106,7 +106,7 @@ namespace AmuzoBounce.GameState.StateImplementations
 
         private void CancelRoundSetup()
         {
-            StopCoroutine(textCoroutine);
+            StopCoroutine(setupCoroutine);
             roundDisplay.UpdateDisplay(targetScore);
             livesDisplay.SetLives(lives);
             setupRunning = false;
