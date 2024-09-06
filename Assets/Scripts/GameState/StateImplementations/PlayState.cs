@@ -55,7 +55,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override void OnStateEnter(StateContext ctx)
         {
             base.OnStateEnter(ctx);
-
+            
             score.Reset();
             targetScore = RoundTargetService.GetTargetScore(ctx.RoundIndex);
             lives = STARTING_LIVES;
@@ -139,7 +139,7 @@ namespace AmuzoBounce.GameState.StateImplementations
             if (score.Total >= targetScore)
                 StartCoroutine(TriggerShapePlacement());
             else if (lives <= 0)
-                InvokeStateChange(State.GameOver);
+                GoToGameOver();
         }
 
         private IEnumerator TriggerShapePlacement()
@@ -152,6 +152,12 @@ namespace AmuzoBounce.GameState.StateImplementations
             yield return hintWait;
 
             InvokeStateChange(State.ShapePlacement);
+        }
+
+        private void GoToGameOver()
+        {
+            ballController.ResetDropPointIndicator();
+            InvokeStateChange(State.GameOver);
         }
     }
 }
