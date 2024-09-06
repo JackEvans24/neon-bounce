@@ -51,7 +51,7 @@ namespace AmuzoBounce.Controllers
             ball.enabled = true;
 
             lastDropPoint.position = ballPosition;
-            lastDropPoint.gameObject.SetActive(AssistMode && true);
+            lastDropPoint.gameObject.SetActive(AssistMode);
 
             ballIsActive = true;
             
