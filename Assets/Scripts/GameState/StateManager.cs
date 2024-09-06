@@ -6,6 +6,7 @@ namespace AmuzoBounce.GameState
     public class StateManager : MonoBehaviour
     {
         [SerializeField] private State defaultState = State.Play;
+        [SerializeField] private bool assistMode;
 
         private readonly Dictionary<State, StateHandler> states = new();
         private State currentState;
@@ -40,6 +41,12 @@ namespace AmuzoBounce.GameState
         private void Start()
         {
             OnStateChangeRequested(defaultState);
+        }
+
+        private void OnValidate()
+        {
+            if (context != null)
+                context.AssistMode = assistMode;
         }
 
         private void OnDestroy()

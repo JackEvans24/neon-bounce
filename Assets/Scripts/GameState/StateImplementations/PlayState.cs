@@ -61,6 +61,8 @@ namespace AmuzoBounce.GameState.StateImplementations
             lives = STARTING_LIVES;
             canDropBall = true;
 
+            ballController.AssistMode = ctx.AssistMode;
+
             scoreDisplay.UpdateDisplay(score, animate: false);
 
             textCoroutine = StartCoroutine(HandleRoundSetup());

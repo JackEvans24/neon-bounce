@@ -11,6 +11,7 @@ namespace AmuzoBounce.Controllers
         public event Action BallLeftArea;
 
         public bool CanDropBall => !ballIsActive;
+        public bool AssistMode;
 
         [SerializeField] private Boundary boundary;
         [SerializeField] private Ball ballPrefab;
@@ -50,7 +51,7 @@ namespace AmuzoBounce.Controllers
             ball.enabled = true;
 
             lastDropPoint.position = ballPosition;
-            lastDropPoint.gameObject.SetActive(true);
+            lastDropPoint.gameObject.SetActive(AssistMode && true);
 
             ballIsActive = true;
             
@@ -69,7 +70,7 @@ namespace AmuzoBounce.Controllers
 
         public void ResetDropPointIndicator() => lastDropPoint.gameObject.SetActive(false);
 
-        public void SetTracerActive(bool active) => ballTracer.SetLineActive(active);
+        public void SetTracerActive(bool active) => ballTracer.SetLineActive(AssistMode && active);
 
         private void OnBounce(BeamType data) => Bounce?.Invoke(data);
     }
