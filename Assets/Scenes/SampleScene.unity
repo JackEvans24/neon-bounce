@@ -6725,6 +6725,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827477195}
   - component: {fileID: 827477196}
+  - component: {fileID: 827477197}
   m_Layer: 0
   m_Name: LastPositionIndicator
   m_TagString: Untagged
@@ -6799,6 +6800,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &827477197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827477194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751bd05659d34428ba85801da54ab898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleDelta: 0.8
+  speed: 2
 --- !u!1 &1311903411
 GameObject:
   m_ObjectHideFlags: 0
