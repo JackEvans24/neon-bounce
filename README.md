@@ -38,6 +38,15 @@ As always, features had to be cut, and I'm aware of places where the game design
     - Show platform overlap areas - it's annoying to have to guess how close to another beam you can place the next one.
     - Ability to sell existing shapes to make room for new ones.
     - Ability to skip shape placement for a score bonus.
+- Audio
+    - Use Fmod to pitch bend a collision noise based on how high your score is, so that the noise starts low and rises in pitch and volume as you gain more points.
+    - High tempo background music - high pass when placing a new shape
+    - SFX
+        - Level complete
+        - Ball dropped
+        - Ball out of bounds
+        - Beam placed
+        - Beam placement invalid
 - Content
     - More shapes - e.g. Chevrons, Diamonds
     - Shape modifiers - e.g.:
