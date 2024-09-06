@@ -27,6 +27,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         [SerializeField] private BallController ballController;
         [SerializeField] private VolumeIntensifier volumeIntensifier;
         [SerializeField] private CameraShake cameraShake;
+        [SerializeField] private ParticleSystem completeParticles;
 
         [Header("UI")]
         [SerializeField] private HintDisplay hintDisplay;
@@ -129,6 +130,8 @@ namespace AmuzoBounce.GameState.StateImplementations
         private IEnumerator TriggerShapePlacement()
         {
             canDropBall = false;
+            
+            completeParticles.Play();
 
             hintDisplay.UpdateText(COMPLETE_HINT);
             yield return hintWait;
