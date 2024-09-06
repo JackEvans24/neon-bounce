@@ -1,4 +1,5 @@
-﻿using AmuzoBounce.Controllers;
+﻿using System.Collections;
+using AmuzoBounce.Controllers;
 using AmuzoBounce.Data;
 using AmuzoBounce.Effects;
 using AmuzoBounce.Extensions;
@@ -13,8 +14,14 @@ namespace AmuzoBounce.GameState.StateImplementations
         public override State State => State.Play;
 
         private const int STARTING_LIVES = 3;
-        private const string DROP_HINT = "Drop Ball";
+        
+        private const string TARGET_HINT = "Target updated";
+        private const string LIVES_HINT = "Lives refilled";
+        private const string DROP_HINT = "Click to drop ball";
         private const string WAIT_HINT = "Await Points";
+        private const string COMPLETE_HINT = "Nice!";
+
+        private readonly WaitForSeconds hintWait = new(1f);
         
         [Header("References")]
         [SerializeField] private BallController ballController;
@@ -32,6 +39,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         private ScoreData score;
         private uint targetScore;
         private int lives;
+        private bool canDropBall;
 
         private void Start()
         {
@@ -48,19 +56,17 @@ namespace AmuzoBounce.GameState.StateImplementations
             score.Reset();
             targetScore = RoundTargetService.GetTargetScore(ctx.RoundIndex);
             lives = STARTING_LIVES;
-
-            hintDisplay.gameObject.SetActive(true);
-            hintDisplay.UpdateText(DROP_HINT);
+            canDropBall = false;
 
             scoreDisplay.UpdateDisplay(score, animate: false);
-            roundDisplay.UpdateDisplay(targetScore);
-            livesDisplay.SetLives(lives);
+
+            StartCoroutine(HandleRoundStart());
         }
 
         public override void HandleClick()
         {
             base.HandleClick();
-            if (ballController.CanDropBall)
+            if (canDropBall && ballController.CanDropBall)
                 StartNewLife();
         }
 
@@ -70,6 +76,22 @@ namespace AmuzoBounce.GameState.StateImplementations
             
             ctx.RoundIndex++;
             hintDisplay.gameObject.SetActive(false);
+        }
+
+        private IEnumerator HandleRoundStart()
+        {
+            hintDisplay.gameObject.SetActive(true);
+            
+            roundDisplay.UpdateDisplay(targetScore);
+            hintDisplay.UpdateText(TARGET_HINT);
+            yield return hintWait;
+
+            livesDisplay.SetLives(lives);
+            hintDisplay.UpdateText(LIVES_HINT);
+            yield return hintWait;
+
+            hintDisplay.UpdateText(DROP_HINT);
+            canDropBall = true;
         }
 
         private void StartNewLife()
@@ -99,9 +121,19 @@ namespace AmuzoBounce.GameState.StateImplementations
             hintDisplay.UpdateText(DROP_HINT);
 
             if (score.Total >= targetScore)
-                InvokeStateChange(State.ShapePlacement);
+                StartCoroutine(TriggerShapePlacement());
             else if (lives <= 0)
                 InvokeStateChange(State.GameOver);
+        }
+
+        private IEnumerator TriggerShapePlacement()
+        {
+            canDropBall = false;
+
+            hintDisplay.UpdateText(COMPLETE_HINT);
+            yield return hintWait;
+
+            InvokeStateChange(State.ShapePlacement);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AmuzoBounce.GameState.StateImplementations
     {
         public override State State => State.ShapePlacement;
 
-        private const string PLACE_HINT = "Place beam";
+        private const string PLACE_HINT = "Click to place beam";
         private const string TOO_CLOSE_HINT = "Beams need space";
 
         [Header("References")]
