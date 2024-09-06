@@ -67,6 +67,8 @@ namespace AmuzoBounce.GameState.StateImplementations
         {
             base.HandleClick();
             
+            beamPreview.gameObject.SetActive(false);
+            
             var worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             worldPosition.z = 0f;
             
@@ -101,7 +103,6 @@ namespace AmuzoBounce.GameState.StateImplementations
             ctx.PlacedBeamPositions.Add(currentRoundBeam.transform.position);
 
             hintDisplay.gameObject.SetActive(false);
-            beamPreview.gameObject.SetActive(false);
         }
     }
 }
