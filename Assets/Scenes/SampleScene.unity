@@ -889,7 +889,7 @@ MonoBehaviour:
   beamParent: {fileID: 1368282043}
   beamPreview: {fileID: 1344375462}
   hintDisplay: {fileID: 2132678124}
-  minSpacing: {x: 1.5, y: 1}
+  minSpacing: 1.4
 --- !u!1 &399032256
 GameObject:
   m_ObjectHideFlags: 0

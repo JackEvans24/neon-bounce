@@ -22,7 +22,7 @@ namespace AmuzoBounce.GameState.StateImplementations
         [SerializeField] private HintDisplay hintDisplay;
 
         [Header("Restrictions")]
-        [SerializeField] private Vector2 minSpacing = Vector2.one;
+        [SerializeField] private float minSpacing = 1.2f;
 
         private Camera mainCamera;
         private List<Vector2> placedBeamPositions;
@@ -86,11 +86,8 @@ namespace AmuzoBounce.GameState.StateImplementations
         {
             foreach (var beamPosition in placedBeamPositions)
             {
-                var xDistance = Mathf.Abs(position.x - beamPosition.x);
-                var yDistance = Mathf.Abs(position.y - beamPosition.y);
-                Debug.Log($"{xDistance}, {yDistance}");
-
-                if (xDistance < minSpacing.x && yDistance < minSpacing.y)
+                var distance = Vector3.Distance(position, beamPosition);
+                if (distance < minSpacing)
                     return false;
             }
 
