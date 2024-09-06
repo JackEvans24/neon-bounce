@@ -36,11 +36,13 @@ namespace AmuzoBounce.GameState.StateImplementations
         [SerializeField] private LivesDisplay livesDisplay;
 
         private Camera mainCamera;
+        private Coroutine textCoroutine;
 
         private ScoreData score;
         private uint targetScore;
         private int lives;
         private bool canDropBall;
+        private bool setupRunning;
 
         private void Start()
         {
@@ -57,16 +59,20 @@ namespace AmuzoBounce.GameState.StateImplementations
             score.Reset();
             targetScore = RoundTargetService.GetTargetScore(ctx.RoundIndex);
             lives = STARTING_LIVES;
-            canDropBall = false;
+            canDropBall = true;
 
             scoreDisplay.UpdateDisplay(score, animate: false);
 
-            StartCoroutine(HandleRoundStart());
+            textCoroutine = StartCoroutine(HandleRoundSetup());
         }
 
         public override void HandleClick()
         {
             base.HandleClick();
+
+            if (setupRunning)
+                CancelRoundSetup();
+
             if (canDropBall && ballController.CanDropBall)
                 StartNewLife();
         }
@@ -79,8 +85,9 @@ namespace AmuzoBounce.GameState.StateImplementations
             hintDisplay.gameObject.SetActive(false);
         }
 
-        private IEnumerator HandleRoundStart()
+        private IEnumerator HandleRoundSetup()
         {
+            setupRunning = true;
             hintDisplay.gameObject.SetActive(true);
             
             roundDisplay.UpdateDisplay(targetScore);
@@ -92,7 +99,15 @@ namespace AmuzoBounce.GameState.StateImplementations
             yield return hintWait;
 
             hintDisplay.UpdateText(DROP_HINT);
-            canDropBall = true;
+            setupRunning = false;
+        }
+
+        private void CancelRoundSetup()
+        {
+            StopCoroutine(textCoroutine);
+            roundDisplay.UpdateDisplay(targetScore);
+            livesDisplay.SetLives(lives);
+            setupRunning = false;
         }
 
         private void StartNewLife()
