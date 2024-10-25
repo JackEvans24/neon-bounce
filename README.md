@@ -1,4 +1,4 @@
-# Amuzo Bounce
+# Neon Bounce
 
 ## How to play
 
