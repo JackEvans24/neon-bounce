@@ -1,5 +1,7 @@
 # Neon Bounce
 
+[Play the game!](https://jevansmassive.itch.io/neon-bounce)
+
 ## How to play
 
 **Step 1 - Place a platform**
